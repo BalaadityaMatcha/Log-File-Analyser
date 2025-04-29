@@ -27,7 +27,7 @@ def g():
             g_3rd[loline[3]] = g_3rd.get(loline[3], 0) + 1
     g_3rd = dict(sorted(g_3rd.items(), key=lambda item: item[0]))
     fig, ax1=plt.subplots()
-    ax1.plot(g_1st.keys(),g_1st.values())
+    ax1.plot(g_1st.keys(),g_1st.values(),c='#FFB347',ls='-.',lw=0.25,marker='o',ms=1,mfc='hotpink',mec='hotpink')
     plt.xticks([list(g_1st.keys())[0], list(g_1st.keys())[-1]])
     ax1.set_title("Events logged with time")
     plt.tight_layout()

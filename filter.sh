@@ -19,7 +19,7 @@ else
             exit
         fi
         if (( ts >= ts1 )); then
-            print ts,$0
-        fi }' "Orgsorted.csv" | sort -t"," -k1,1n | cut -d"," -f2- > sorted.csv
+            print $0
+        fi }' "Orgsorted.csv" > sorted.csv
 echo "Done filtering"
 fi

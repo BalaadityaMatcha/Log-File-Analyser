@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log Analysis Results | LogFileConverter</title>
+  <link rel="stylesheet" href="../static/logdisplay.css">
+</head>
+<body>
+    <header id="head">Log Analysis Results</header>
+    <div class="{{'hidden' if table_body=='' else 'container' }}">
+        <form method="post" class="input-row" id="logFilterForm">
+            <input type="text" id="start_time" name="start_time" placeholder="start_time" required>
+            <input type="text" id="end_time" name="end_time" placeholder="end_time" required>
+        <button type="submit">FILTER & DISPLAY LOG DATA</button>
+        </form>
+        <div class="outputs">
+          <form action="/download/csv" method="get">
+            <button>Download Processed File</button></form>
+          <button onclick="window.open('./pyeditor.html', '_blank')">Visualizations</button>
+        </div>
+        <div id="table">
+            <table>
+              <tbody>
+                {{ table_body|default("")|safe }}
+              </tbody>  
+            </table>
+        </div>
+    </div>
+    <div class="{{ 'error' if table_body=='' else '' }}"><p>Error: CSV not found.<br>Please upload a relevant file.</p></div>
+</body>
+</html>

@@ -1,0 +1,90 @@
+body {
+    margin: 0;
+    background-color: #0d1117;
+    color: #c9d1d9;
+    font-family: -apple-system, BlinkSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+a{
+    text-decoration: none;
+    color: #6cacf6;
+}
+
+#head {
+    text-align: center;
+    padding: 20px;
+    font-size: 28px;
+    font-weight: 600;
+    background-color: rgb(114, 239, 114);
+    color: black;
+    border-bottom: 1px solid #30363d;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+p {
+    text-align: center;
+    color: #8b949e;
+    margin: 20px 0;
+    line-height: 1.5;
+}
+
+#drop {
+    display: block;
+    margin: 20px auto;
+    background-color: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    padding: 10px;
+    color: #c9d1d9;
+    transition: all 0.3s ease;
+}
+
+#drop:hover {
+    background-color: #1f2937;
+    border-color: #58a6ff;
+}
+
+#check {
+    display: block;
+    margin: 20px auto;
+    border-radius: 6px;
+    width: 120px;
+    font-size: 14px;
+    background-color: #238636;
+    height: 35px;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#check:hover {
+    background-color: #2ea043;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+html {
+    background-color: #0d1117;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Add subtle animation for elements */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#head, p, #drop, #check {
+    animation: fadeIn 0.5s ease-out;
+}

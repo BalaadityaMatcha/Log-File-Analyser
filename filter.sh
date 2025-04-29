@@ -15,11 +15,11 @@ else
         {cmd = "date -d \""$1"\" +%s"
         cmd | getline ts
         close(cmd)
-        if (( ts > ts2 )); then
-            exit
-        fi
-        if (( ts >= ts1 )); then
+        if( ts >= ts1 ) {
             print $0
-        fi }' "Orgsorted.csv" > sorted.csv
+        }
+        if( ts > ts2 ) {
+            exit
+        } }' "Orgsorted.csv" > sorted.csv
 echo "Done filtering"
 fi

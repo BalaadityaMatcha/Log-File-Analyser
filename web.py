@@ -190,11 +190,7 @@ def download_file(var):
         elif var=='3':
             return send_file(io.BytesIO(base64.b64decode(img_data[2])),as_attachment=True,download_name='eventcode_dstr.png')
         else:
-            return send_file("userplot.png",as_attachment=True)
-''' 
-@resp.route('/userplot.png')
-def userplot():
-    return send_file('userplot.png', mimetype='image/png')
-'''
+            return send_file("static/userplot.png",as_attachment=True)
+        
 if __name__ == "__main__":
     resp.run(host="0.0.0.0",debug=True, use_reloader=False)

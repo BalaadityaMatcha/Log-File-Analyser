@@ -29,3 +29,4 @@ plt.pie(g_2nd.values(),labels=g_2nd.keys())
 # End of input.
 plt.tight_layout()
 plt.savefig('userplot.png',dpi=300)
+os.rename('userplot.png','static/userplot.png')

@@ -19,7 +19,7 @@ def conv():
         elif out == "Empty file!":
             session['msg'] = "Empty file!<br>Cannot parse."
         else:
-            x=["userplot.png","sorted.csv","Orgsorted.csv"]
+            x=["static/userplot.png","sorted.csv","Orgsorted.csv"]
             for f in x:
                 try:
                     if os.path.exists(f):
@@ -125,7 +125,6 @@ if os.path.isfile("sorted.csv"):
 else:
     file="Orgsorted.csv"
 with open(file, "r") as f:
-    global g_1st, g_2nd, g_3rd
     for line in f:
         loline=line.strip().split(",")
         g_1st[loline[0]] = g_1st.get(loline[0], 0) + 1
@@ -161,10 +160,9 @@ plt.savefig('userplot.png',dpi=300)
                 f.write(snippet)
             with open("script.py", "a") as f:
                 f.write(code)
+                f.write("os.rename('userplot.png','static/userplot.png')")
             try:
                 output=subprocess.run(["python3","script.py"],capture_output=True,text=True,timeout=120)
-                print(output.stderr)
-                print(output.stdout)
                 if output.returncode == 0:
                     msg="Success!"
                 else:
@@ -193,10 +191,10 @@ def download_file(var):
             return send_file(io.BytesIO(base64.b64decode(img_data[2])),as_attachment=True,download_name='eventcode_dstr.png')
         else:
             return send_file("userplot.png",as_attachment=True)
- 
+''' 
 @resp.route('/userplot.png')
 def userplot():
     return send_file('userplot.png', mimetype='image/png')
-
+'''
 if __name__ == "__main__":
     resp.run(host="0.0.0.0",debug=True, use_reloader=False)

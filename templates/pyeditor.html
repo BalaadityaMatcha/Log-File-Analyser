@@ -22,10 +22,15 @@
         </form>
         <p id="response">{{ response }}</p>
     </div>
-    <div class="{{ 'success' if response=='Success' else 'hidden' }}">
-        <img src="../userplot.png" alt="User's plot">
-        <form action="/download/user"><button>Download</button></form>
-    </div>
+    {% if response == "Success!" %}
+        <div class="success">
+            <img src="{{ url_for('static', filename='userplot.png') }}" alt="User's plot">
+            <form action="/download/user" method="get">
+                <button>Download</button>
+            </form>
+        </div>
+    {% endif %}
+
     <div class="{{ 'error' if visuals=='nah' else 'hidden' }}"><p>Error: CSV not found.<br>Please upload a relevant file.</p></div>
     <div class="{{ 'nil' if imgs=='empty' else 'hidden' }}"><p>Error: No data available for the selected time range.</p></div>
 </body>

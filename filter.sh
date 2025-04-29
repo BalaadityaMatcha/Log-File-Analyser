@@ -11,22 +11,15 @@ if [[ $date1 == '0' || $date2 == '0' ]]; then
 else
     ts1=$(date -d "$date1" +%s)
     ts2=$(date -d "$date2" +%s)
-    > filtered.csv
-    while read -r line; do
-        tm=$(echo "$line" | cut -d"," -f1)
-        ts=$(date -d "$tm" +%s)
-        if (( ts > ts2 )); then
-            break
-        fi
-        if (( ts >= ts1 )); then
-            echo "$line" >> filtered.csv
-        fi
-    done < "Orgsorted.csv"
-    awk 'BEGIN{FS=",";OFS=",";}
+    awk -v ts1="$ts1" -v ts2="$ts2" 'BEGIN{FS=",";OFS=",";}
         {cmd = "date -d \""$1"\" +%s"
         cmd | getline ts
         close(cmd)
-        print ts, $0}' filtered.csv | sort -t"," -k1,1n | cut -d"," -f2- > sorted.csv
-rm filtered.csv
+        if (( ts > ts2 )); then
+            exit
+        fi
+        if (( ts >= ts1 )); then
+            print ts,$0
+        fi }' "Orgsorted.csv" | sort -t"," -k1,1n | cut -d"," -f2- > sorted.csv
 echo "Done filtering"
 fi

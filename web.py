@@ -19,7 +19,7 @@ def conv():
         elif out == "Empty file!":
             session['msg'] = "Empty file!<br>Cannot parse."
         else:
-            x=["final.csv","userplot.png","sorted.csv","Orgsorted.csv"]
+            x=["userplot.png","sorted.csv","Orgsorted.csv"]
             for f in x:
                 try:
                     if os.path.exists(f):
@@ -177,7 +177,11 @@ plt.savefig('userplot.png',dpi=300)
 @resp.route('/download/<var>')
 def download_file(var):
     if var=='csv':
-        return send_file("sorted.csv",as_attachment=True)
+        if os.path.isfile("sorted.csv"):
+            file="sorted.csv"
+        else:
+            file="Orgsorted.csv"
+        return send_file(file,as_attachment=True)
     else:
         from plots import g
         img_data=g()

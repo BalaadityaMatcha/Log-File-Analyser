@@ -15,10 +15,13 @@ else
     while read -r line; do
         tm=$(echo "$line" | cut -d"," -f1)
         ts=$(date -d "$tm" +%s)
-        if [[ ts1 -le ts && ts2 -ge ts ]]; then
+        if (( ts > ts2 )); then
+            break
+        fi
+        if (( ts >= ts1 )); then
             echo "$line" >> filtered.csv
         fi
-    done < "$file"
+    done < "Orgsorted.csv"
     awk 'BEGIN{FS=",";OFS=",";}
         {cmd = "date -d \""$1"\" +%s"
         cmd | getline ts

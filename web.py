@@ -43,7 +43,7 @@ def table():
     dir = os.path.dirname(os.path.abspath(__file__))
     pathoffile = os.path.join(dir, "final.csv")
     if request.method == 'GET':
-        if os.path.isfile(dir, "Orgsorted.csv"):
+        if not os.path.isfile("Orgsorted.csv"):
             subprocess.run(["bash", "filter.sh", pathoffile, "0", "0"],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
         table = subprocess.run(["bash","table.sh","Orgsorted.csv"],text=True,capture_output=True)
         return render_template('logdisplay.html',table_body=table.stdout.strip())
@@ -52,7 +52,7 @@ def table():
         date2 = request.form.get('end_time')
         output = subprocess.run(["bash", "filter.sh", pathoffile,date1,date2],text=True,capture_output=True)
         if output.stdout.strip() == "Done filtering":
-            table = subprocess.run(["bash","table.sh"],text=True,capture_output=True)
+            table = subprocess.run(["bash","table.sh","sorted.csv"],text=True,capture_output=True)
             return render_template('logdisplay.html',table_body=table.stdout.strip())
         else:
             return render_template('logdisplay.html',table_body="")

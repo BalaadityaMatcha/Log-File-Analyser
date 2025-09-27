@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log Visualizations | LogFileConverter</title>
+    <link rel="stylesheet" href="../static/plots.css">
+</head>
+<body>
+    <header id="head">Predefined Visuals</header>
+    <div class="{{ 'hidden' if imgs=='nah' else 'container' }}">
+        <form method="post" class="input-row" id="logFilterForm">
+            <input type="text" id="start_time" name="start_time" placeholder="start_time" required>
+            <input type="text" id="end_time" name="end_time" placeholder="end_time" required>
+        <button type="submit">FILTER & DISPLAY GRAPHS</button>
+        </form>
+        <div class="{{ 'hidden' if imgs=='nah' or imgs=='empty' else 'graphs' }}">
+            <img src="data:image/png;base64,{{ imgs[0] }}" alt="Line Plot of Events vs Time">
+            <form action="/download/1"><button>Download</button></form>
+            <img src="data:image/png;base64,{{ imgs[1] }}" alt="Pie chart of Levels">
+            <form action="/download/2"><button>Download</button></form>
+            <img src="data:image/png;base64,{{ imgs[2] }}" alt="Bar plot of Event codes">
+            <form action="/download/3"><button>Download</button></form>
+        </div>
+    </div>
+    <div class="{{ 'error' if imgs=='nah' else 'hidden' }}"><p>Error: CSV not found.<br>Please upload a relevant file.</p></div>
+    <div class="{{ 'nil' if imgs=='empty' else 'hidden' }}"><p>Error: No data available for the selected time range.</p></div>
+</body>
+</html>

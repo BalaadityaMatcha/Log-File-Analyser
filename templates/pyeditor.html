@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizations | LogFileConverter</title>
+    <link rel="stylesheet" href="../static/pyeditor.css">
+</head>
+<body>
+    <header id="head">Data Visualization Dashboard</header>
+    <button id="plots" onclick="window.open('./plots.html','_blank')">Predefined Visuals</button>
+    <div class="{{ 'hidden' if visuals=='nah' else 'container' }}">
+        <form method="post" class="input-row" id="logFilterForm">
+            <input type="text" id="start_time" name="start_time" placeholder="start_time" required>
+            <input type="text" id="end_time" name="end_time" placeholder="end_time" required>
+        <button type="submit">FILTER</button>
+        </form>
+        <form method="post" class="pyscript">
+            <p>You can write your script in the below textarea to generate your own plots!</p>
+            <textarea name="pycode" spellcheck="false">{{ instruction|safe }}</textarea><br>
+            <button type="submit">Submit</button>
+        </form>
+        <p id="response">{{ response }}</p>
+    </div>
+    {% if response == "Success!" %}
+        <div class="success">
+            <img src="{{ url_for('static', filename='userplot.png') }}" alt="User's plot">
+            <form action="/download/user" method="get">
+                <button>Download</button>
+            </form>
+        </div>
+    {% endif %}
+
+    <div class="{{ 'error' if visuals=='nah' else 'hidden' }}"><p>Error: CSV not found.<br>Please upload a relevant file.</p></div>
+    <div class="{{ 'nil' if imgs=='empty' else 'hidden' }}"><p>Error: No data available for the selected time range.</p></div>
+</body>
+<br><br><br>
+</html>

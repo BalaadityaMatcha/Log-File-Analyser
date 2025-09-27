@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-store" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="title" content="Log File Converter - Upload and Process Log Data">
+    <title>Upload file | LogFileConverter</title>
+    <link rel="stylesheet" href="../static/upload.css">
+</head>
+<body>
+    <header id="head">Log File Converter</header>
+    <p>Welcome to our website. Please upload your log file(apache) to get the results!</p><br>
+    <form id="box" method="post" enctype="multipart/form-data">
+    <input type="file" id="drop" name="drop" required>
+    <br><br>
+    <button type="submit" id="check">Get CSV</button>
+    </form>
+    <div id="response">
+        {% if msg %}
+            <p>{{ msg|safe }}</p>
+        {% endif %}
+    </div>
+    <br>
+    <div id="nxtstp" class="{{'' if msg|safe== 'Parsing succesful!<br>You can now visit the other pages to get your results.' else 'hidden'}}">
+        <p>Click <a target="_self" href="./logdisplay.html">here</a> to see the structured csv file.</p>
+        <p>Click <a target="_blank" href="./plots.html">here</a> to see some predefined graphs derived from your data.</p>
+        <p>Click <a target="_self" href="./pyeditor.html">here</a> to open editor.</p>
+        <p>Note that these may take some time. Don't loose your patience! 😉</p>
+    </div>
+</body>
+</html>

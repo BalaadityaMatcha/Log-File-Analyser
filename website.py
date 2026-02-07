@@ -2,7 +2,7 @@ from flask import Flask, request, render_template, redirect, url_for, session, s
 import subprocess, os, io, base64
 
 resp = Flask(__name__)
-resp.secret_key = SECRET_KEY
+resp.secret_key = "debba_debba"
 
 @resp.route('/', methods=['GET', 'POST'])
 @resp.route('/upload.html', methods=['GET', 'POST'])

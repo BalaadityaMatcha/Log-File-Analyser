@@ -2,7 +2,7 @@ from flask import Flask, request, render_template, redirect, url_for, session, s
 import subprocess, os, io, base64
 
 resp = Flask(__name__)
-resp.secret_key = "debba_debba"
+resp.secret_key = SECRET_KEY
 
 @resp.route('/', methods=['GET', 'POST'])
 @resp.route('/upload.html', methods=['GET', 'POST'])
@@ -91,11 +91,7 @@ def editor():
     
     dir = os.path.dirname(os.path.abspath(__file__))
     pathoffile = os.path.join(dir, "final.csv")
-    if request.method == 'GET':
-        if not os.path.isfile("sorted.csv"):
-            if not os.path.isfile("Orgsorted.csv"):
-                subprocess.run(["bash", "filter.sh", pathoffile, "0", "0"],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
-        instructions='''
+    instructions='''
 ##### Please make only one image at a time to get results. #####
 
 # g_1st -> A dictionary instance with 'Timestamps' as keys
@@ -111,6 +107,10 @@ def editor():
 plt.tight_layout()
 plt.savefig('userplot.png',dpi=300)
 '''
+    if request.method == 'GET':
+        if not os.path.isfile("sorted.csv"):
+            if not os.path.isfile("Orgsorted.csv"):
+                subprocess.run(["bash", "filter.sh", pathoffile, "0", "0"],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
         return render_template('pyeditor.html',instruction=instructions)
     else:
         code=request.form.get('pycode')
@@ -137,7 +137,7 @@ with open(file, "r") as f:
         if date1 and date2:
             if code==None:
                 output = subprocess.run(["bash", "filter.sh", pathoffile,date1,date2],text=True,capture_output=True)
-
+                return render_template('pyeditor.html',instruction=instructions)
         if code=='''
 ##### Please make only one image at a time to get results. #####
 
